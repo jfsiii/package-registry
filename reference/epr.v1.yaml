@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  title: EPR
+  version: '1.0'
+  license:
+    name: Elastic-License
+    url: 'https://github.com/elastic/elasticsearch/blob/master/licenses/ELASTIC-LICENSE.txt'
+  description: Elastic Package Registry
+  contact:
+    name: Nicolas Ruflin
+    email: spam@ruflin.com
+servers:
+  - url: 'https://epr.elastic.co'
+    description: public
+  - url: 'http://localhost:8080'
+    description: local
+paths:
+  /:
+    get:
+      summary: Get Info
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Root-Info'
+              examples:
+                example-1:
+                  value:
+                    service.name: package-registry
+                    version: 0.2.0
+      operationId: get
+components:
+  schemas:
+    Root-Info:
+      title: Root-Info
+      type: object
+      properties:
+        version:
+          type: string
+        service.name:
+          type: string
+  securitySchemes: {}
