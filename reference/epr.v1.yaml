@@ -17,7 +17,7 @@ servers:
 paths:
   /:
     get:
-      summary: Get Info
+      summary: GET info
       tags: []
       responses:
         '200':
@@ -32,6 +32,343 @@ paths:
                     service.name: package-registry
                     version: 0.2.0
       operationId: get
+      description: Info about the registry
+  /categories:
+    get:
+      summary: GET categories
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+              examples:
+                example-1:
+                  value:
+                    - id: logs
+                      title: Logs
+                      count: 20
+                    - id: metrics
+                      title: Metrics
+                      count: 17
+      operationId: get-categories
+      description: List of the existing package categories and how many packages are in each category
+  /search:
+    get:
+      summary: Search packages
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Package'
+              examples:
+                example-1:
+                  value:
+                    - description: Apache logs and metrics
+                      download: /epr/apache/apache-1.0.1.tar.gz
+                      icons:
+                        - src: /package/apache-1.0.1/img/icon.svg
+                          type: image/svg+xml
+                      name: apache
+                      path: /package/apache-1.0.1
+                      title: Apache
+                      type: integration
+                      version: 1.0.1
+                    - description: Auditd integration
+                      download: /epr/auditd/auditd-2.0.4.tar.gz
+                      icons:
+                        - src: /package/auditd-2.0.4/img/icon.svg
+                          type: image/svg+xml
+                      name: auditd
+                      path: /package/auditd-2.0.4
+                      title: Auditd
+                      type: integration
+                      version: 2.0.4
+                    - description: |
+                        CoreDNS logs and metrics integration.
+                        The CoreDNS integrations allows to gather logs and metrics from the CoreDNS DNS server to get better insights.
+                      download: /epr/coredns/coredns-1.0.1.tar.gz
+                      icons:
+                        - src: /package/coredns-1.0.1/img/icon.png
+                          size: 1800x1800
+                        - src: /package/coredns-1.0.1/img/icon.svg
+                          size: 255x144
+                          type: image/svg+xml
+                      name: coredns
+                      path: /package/coredns-1.0.1
+                      title: CoreDNS
+                      type: integration
+                      version: 1.0.1
+                    - description: Docker Logs and metrics
+                      download: /epr/docker/docker-1.2.3.tar.gz
+                      icons:
+                        - src: /package/docker-1.2.3/img/icon.svg
+                          type: image/svg+xml
+                      name: docker
+                      path: /package/docker-1.2.3
+                      title: Docker
+                      type: integration
+                      version: 1.2.3
+                    - description: Elasticsearch Logs and metrics
+                      download: /epr/elasticsearch/elasticsearch-1.3.1.tar.gz
+                      icons:
+                        - src: /package/elasticsearch-1.3.1/img/icon.svg
+                          type: image/svg+xml
+                      name: elasticsearch
+                      path: /package/elasticsearch-1.3.1
+                      title: Elasticsearch
+                      type: integration
+                      version: 1.3.1
+                    - description: HaProxy Logs and metrics
+                      download: /epr/haproxy/haproxy-1.3.1.tar.gz
+                      icons:
+                        - src: /package/haproxy-1.3.1/img/icon.svg
+                          type: image/svg+xml
+                      name: haproxy
+                      path: /package/haproxy-1.3.1
+                      title: HAProxy
+                      type: integration
+                      version: 1.3.1
+                    - description: iptables logs
+                      download: /epr/iptables/iptables-1.0.4.tar.gz
+                      icons:
+                        - src: /package/iptables-1.0.4/img/icon.png
+                          size: 1800x1800
+                          type: image/png
+                      name: iptables
+                      path: /package/iptables-1.0.4
+                      title: IP Tables
+                      type: integration
+                      version: 1.0.4
+                    - description: Kafka Logs and metrics
+                      download: /epr/kafka/kafka-1.0.1.tar.gz
+                      icons:
+                        - src: /package/kafka-1.0.1/img/icon.svg
+                          type: image/svg+xml
+                      name: kafka
+                      path: /package/kafka-1.0.1
+                      title: Kafka
+                      type: integration
+                      version: 1.0.1
+                    - description: Kibana Logs and metrics
+                      download: /epr/kibana/kibana-1.3.2.tar.gz
+                      icons:
+                        - src: /package/kibana-1.3.2/img/icon.svg
+                          type: image/svg+xml
+                      name: kibana
+                      path: /package/kibana-1.3.2
+                      title: Kibana
+                      type: integration
+                      version: 1.3.2
+                    - description: |
+                        The log package should be used to create data sources for all type of logs for which an package doesn't exist yet.
+                      download: /epr/log/log-0.9.0.tar.gz
+                      name: log
+                      path: /package/log-0.9.0
+                      title: Log Package
+                      type: integration
+                      version: 0.9.0
+                    - description: |
+                        This integration contains pretty long documentation.
+                        It is used to show the different visualisations inside a documentation to test how we handle it.
+                        The integration does not contain any assets except the documentation page.
+                      download: /epr/longdocs/longdocs-1.0.4.tar.gz
+                      icons:
+                        - src: /package/longdocs-1.0.4/img/icon.svg
+                          type: image/svg+xml
+                      name: longdocs
+                      path: /package/longdocs-1.0.4
+                      title: Long Docs
+                      type: integration
+                      version: 1.0.4
+                    - description: |
+                        This is an integration with only the metrics category.
+                      download: /epr/metricsonly/metricsonly-2.0.1.tar.gz
+                      icons:
+                        - src: /package/metricsonly-2.0.1/img/icon.svg
+                          type: image/svg+xml
+                      name: metricsonly
+                      path: /package/metricsonly-2.0.1
+                      title: Metrics Only
+                      type: integration
+                      version: 2.0.1
+                    - description: MongoDB Logs and metrics
+                      download: /epr/mongodb/mongodb-1.0.1.tar.gz
+                      icons:
+                        - src: /package/mongodb-1.0.1/img/icon.svg
+                          type: image/svg+xml
+                      name: mongodb
+                      path: /package/mongodb-1.0.1
+                      title: MongoDB
+                      type: integration
+                      version: 1.0.1
+                    - description: |
+                        Multiple versions of this integration exist.
+                      download: /epr/multiversion/multiversion-1.1.0.tar.gz
+                      icons:
+                        - src: /package/multiversion-1.1.0/img/icon.svg
+                          type: image/svg+xml
+                      name: multiversion
+                      path: /package/multiversion-1.1.0
+                      title: Multi Version
+                      type: integration
+                      version: 1.1.0
+                    - description: Mysql Logs and metrics
+                      download: /epr/mysql/mysql-1.0.2.tar.gz
+                      icons:
+                        - src: /package/mysql-1.0.2/img/icon.svg
+                          type: image/svg+xml
+                      name: mysql
+                      path: /package/mysql-1.0.2
+                      title: MySQL
+                      type: integration
+                      version: 1.0.2
+                    - description: Nginx integration
+                      download: /epr/nginx/nginx-1.2.0.tar.gz
+                      name: nginx
+                      path: /package/nginx-1.2.0
+                      title: Nginx
+                      type: integration
+                      version: 1.2.0
+                    - description: Postgres SQL Logs and metrics
+                      download: /epr/postgresql/postgresql-1.0.2.tar.gz
+                      icons:
+                        - src: /package/postgresql-1.0.2/img/icon.svg
+                          type: image/svg+xml
+                      name: postgresql
+                      path: /package/postgresql-1.0.2
+                      title: PostgreSQL
+                      type: integration
+                      version: 1.0.2
+                    - description: RabbitMQ Logs and metrics
+                      download: /epr/rabbitmq/rabbitmq-1.0.2.tar.gz
+                      icons:
+                        - src: /package/rabbitmq-1.0.2/img/icon.svg
+                          type: image/svg+xml
+                      name: rabbitmq
+                      path: /package/rabbitmq-1.0.2
+                      title: RabbitMQ
+                      type: integration
+                      version: 1.0.2
+                    - description: System SQL Logs and metrics
+                      download: /epr/system/system-2.0.1.tar.gz
+                      name: system
+                      path: /package/system-2.0.1
+                      title: System
+                      type: integration
+                      version: 2.0.1
+                    - description: Traefik SQL Logs and metrics
+                      download: /epr/traefik/traefik-1.0.2.tar.gz
+                      name: traefik
+                      path: /package/traefik-1.0.2
+                      title: Traefik
+                      type: integration
+                      version: 1.0.2
+                    - description: |
+                        This package contains a yaml pipeline.
+                      download: /epr/yamlpipeline/yamlpipeline-1.0.0.tar.gz
+                      name: yamlpipeline
+                      path: /package/yamlpipeline-1.0.0
+                      title: Yaml Pipeline package
+                      type: integration
+                      version: 1.0.0
+      operationId: get-search
+      description: Search for packages. By default returns all the most recent packages available.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: kibana
+          description: 'Filters out all the packages which are not compatible with the given Kibana version. If it is set to 7.3.1 and a package requires 7.4, the package will not be returned or an older compatible package will be shown. By default this endpoint always returns only the newest compatible package.'
+        - schema:
+            type: string
+          in: query
+          name: category
+          description: Filters the package by the given category. Available categories can be seend when going to /categories endpoint.
+        - schema:
+            type: string
+          in: query
+          name: package
+          description: 'Filters by a specific package name, for example mysql. In contrast to the other endpoints, it will return by default all versions of this package.'
+        - schema:
+            type: string
+          in: query
+          name: internal
+          description: 'This can be set to true, to also list internal packages. This is set to false by default.'
+  /package:
+    get:
+      summary: GET package info
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+              examples:
+                example-1:
+                  value:
+                    name: example
+                    title: Example Integration
+                    version: 1.0.0
+                    readme: /package/example-1.0.0/docs/README.md
+                    description: This is the example integration
+                    type: integration
+                    categories:
+                      - logs
+                      - metrics
+                    requirement:
+                      kibana:
+                        versions: '>=7.0.0'
+                    screenshots:
+                      - src: /package/example-1.0.0/img/kibana-iptables.png
+                        title: IP Tables Overview dashboard
+                        size: 1492x1382
+                      - src: /package/example-1.0.0/img/kibana-iptables-ubiquity.png
+                        title: IP Tables Ubiquity Dashboard
+                        size: 1492x1464
+                        type: image/png
+                    assets:
+                      - /package/example-1.0.0/manifest.yml
+                      - /package/example-1.0.0/docs/README.md
+                      - /package/example-1.0.0/img/icon.png
+                      - /package/example-1.0.0/img/kibana-envoyproxy.jpg
+                      - /package/example-1.0.0/dataset/foo/manifest.yml
+                      - /package/example-1.0.0/kibana/dashboard/0c610510-5cbd-11e9-8477-077ec9664dbd.json
+                      - '/package/example-1.0.0/kibana/index-pattern/filebeat-*.json'
+                      - /package/example-1.0.0/kibana/visualization/0a994af0-5c9d-11e9-8477-077ec9664dbd.json
+                      - /package/example-1.0.0/kibana/visualization/36f872a0-5c03-11e9-85b4-19d0072eb4f2.json
+                      - /package/example-1.0.0/kibana/visualization/38f96190-5c99-11e9-8477-077ec9664dbd.json
+                      - /package/example-1.0.0/kibana/visualization/7e4084e0-5c99-11e9-8477-077ec9664dbd.json
+                      - /package/example-1.0.0/kibana/visualization/80844540-5c97-11e9-8477-077ec9664dbd.json
+                      - /package/example-1.0.0/kibana/visualization/ab48c3f0-5ca6-11e9-8477-077ec9664dbd.json
+                      - /package/example-1.0.0/dataset/foo/elasticsearch/ingest-pipeline/pipeline-entry.json
+                      - /package/example-1.0.0/dataset/foo/elasticsearch/ingest-pipeline/pipeline-http.json
+                      - /package/example-1.0.0/dataset/foo/elasticsearch/ingest-pipeline/pipeline-json.json
+                      - /package/example-1.0.0/dataset/foo/elasticsearch/ingest-pipeline/pipeline-plaintext.json
+                      - /package/example-1.0.0/dataset/foo/elasticsearch/ingest-pipeline/pipeline-tcp.json
+                    format_version: 1.0.0
+                    datasets:
+                      - title: Foo
+                        name: foo
+                        release: beta
+                        type: logs
+                        ingest_pipeline: pipeline-entry
+                        package: example
+                    download: /epr/example/example-1.0.0.tar.gz
+                    path: /package/example-1.0.0
+      operationId: get-package
+      description: Info about a package
 components:
   schemas:
     Root-Info:
@@ -42,4 +379,120 @@ components:
           type: string
         service.name:
           type: string
+    Category:
+      title: Category
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        count:
+          type: integer
+    Image:
+      title: Image
+      type: object
+      properties:
+        src:
+          type: string
+        title:
+          type: string
+        size:
+          type: string
+        type:
+          type: string
+    Kibana:
+      title: Kibana
+      type: object
+      properties:
+        versions:
+          type: string
+    Requirement:
+      title: Requirement
+      type: object
+      properties:
+        Kibana:
+          $ref: '#/components/schemas/Kibana'
+      required:
+        - Kibana
+    Package:
+      title: Package
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        version:
+          type: string
+        readme:
+          type: string
+        description:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        requirement:
+          $ref: '#/components/schemas/Requirement'
+        screenshots:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        icons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        assets:
+          type: array
+          items:
+            type: string
+        internal:
+          type: boolean
+        formatversion:
+          type: string
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSet'
+        download:
+          type: string
+        path:
+          type: string
+      required:
+        - name
+        - version
+        - description
+        - categories
+        - requirement
+        - formatversion
+        - download
+        - path
+    DataSet:
+      title: DataSet
+      type: object
+      properties:
+        title:
+          type: string
+        name:
+          type: string
+        release:
+          type: string
+        type:
+          type: string
+        ingest_pipeline:
+          type: string
+        vars:
+          type: array
+          items:
+            type: object
+        package:
+          type: string
+      required:
+        - title
+        - name
+        - release
+        - type
+        - vars
+        - package
   securitySchemes: {}
