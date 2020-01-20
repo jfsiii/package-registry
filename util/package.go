@@ -20,9 +20,28 @@ import (
 
 const defaultType = "integration"
 
-var CategoryTitles = map[string]string{
+type CategoryID string
+
+const (
+	logs    CategoryID = "logs"
+	metrics CategoryID = "metrics"
+)
+
+func (c CategoryID) String() string {
+	return string(c)
+}
+
+var CategoryTitles = map[CategoryID]string{
 	"logs":    "Logs",
 	"metrics": "Metrics",
+}
+
+type Category struct {
+	Id CategoryID `yaml:"id" json:"id"`
+}
+
+func (c Category) ID() string {
+	return string(c.Id)
 }
 
 type Package struct {
@@ -31,18 +50,18 @@ type Package struct {
 	Version       string  `config:"version" json:"version"`
 	Readme        *string `config:"readme,omitempty" json:"readme,omitempty"`
 	versionSemVer semver.Version
-	Description   string      `config:"description" json:"description"`
-	Type          string      `config:"type" json:"type"`
-	Categories    []string    `config:"categories" json:"categories"`
-	Requirement   Requirement `config:"requirement" json:"requirement"`
-	Screenshots   []Image     `config:"screenshots,omitempty" json:"screenshots,omitempty"`
-	Icons         []Image     `config:"icons,omitempty" json:"icons,omitempty"`
-	Assets        []string    `config:"assets,omitempty" json:"assets,omitempty"`
-	Internal      bool        `config:"internal,omitempty" json:"internal,omitempty"`
-	FormatVersion string      `config:"format_version" json:"format_version"`
-	DataSets      []*DataSet  `config:"datasets,omitempty" json:"datasets,omitempty"`
-	Download      string      `json:"download"`
-	Path          string      `json:"path"`
+	Description   string       `config:"description" json:"description"`
+	Type          string       `config:"type" json:"type"`
+	Categories    []CategoryID `config:"categories" json:"categories"`
+	Requirement   Requirement  `config:"requirement" json:"requirement"`
+	Screenshots   []Image      `config:"screenshots,omitempty" json:"screenshots,omitempty"`
+	Icons         []Image      `config:"icons,omitempty" json:"icons,omitempty"`
+	Assets        []string     `config:"assets,omitempty" json:"assets,omitempty"`
+	Internal      bool         `config:"internal,omitempty" json:"internal,omitempty"`
+	FormatVersion string       `config:"format_version" json:"format_version"`
+	DataSets      []*DataSet   `config:"datasets,omitempty" json:"datasets,omitempty"`
+	Download      string       `json:"download"`
+	Path          string       `json:"path"`
 }
 
 type Requirement struct {
@@ -137,7 +156,7 @@ func NewPackage(basePath, packageName string) (*Package, error) {
 
 func (p *Package) HasCategory(category string) bool {
 	for _, c := range p.Categories {
-		if c == category {
+		if string(c) == category {
 			return true
 		}
 	}

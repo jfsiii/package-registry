@@ -14,9 +14,9 @@ import (
 )
 
 type Category struct {
-	Id    string `yaml:"id" json:"id"`
-	Title string `yaml:"title" json:"title"`
-	Count int    `yaml:"count" json:"count"`
+	Id    util.CategoryID `yaml:"id" json:"id"`
+	Title string          `yaml:"title" json:"title"`
+	Count int             `yaml:"count" json:"count"`
 }
 
 // categoriesHandler is a dynamic handler as it will also allow filtering in the future.
@@ -48,19 +48,24 @@ func categoriesHandler(packagesBasePath, cacheTime string) func(w http.ResponseW
 			packageList[p.Name] = p
 		}
 
-		categories := map[string]*Category{}
+		categories := map[util.CategoryID]*Category{}
 
 		for _, p := range packageList {
 			for _, c := range p.Categories {
 				if _, ok := categories[c]; !ok {
 					categories[c] = &Category{
 						Id:    c,
-						Title: c,
+						Title: util.CategoryTitles[c],
 						Count: 0,
 					}
 				}
 
-				categories[c].Count = categories[c].Count + 1
+				categories[c] = &Category{
+					Id:    c,
+					Title: util.CategoryTitles[c],
+					Count: categories[c].Count + 1,
+				}
+
 			}
 		}
 
@@ -74,21 +79,12 @@ func categoriesHandler(packagesBasePath, cacheTime string) func(w http.ResponseW
 	}
 }
 
-func getCategoriesOutput(categories map[string]*Category) ([]byte, error) {
-	var keys []string
-	for k := range categories {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-
+func getCategoriesOutput(categories map[util.CategoryID]*Category) ([]byte, error) {
 	var outputCategories []*Category
-	for _, k := range keys {
-		c := categories[k]
-		if title, ok := util.CategoryTitles[c.Title]; ok {
-			c.Title = title
-		}
-		outputCategories = append(outputCategories, c)
+	for k := range categories {
+		outputCategories = append(outputCategories, categories[k])
 	}
+	sort.SliceStable(outputCategories, func(i, j int) bool { return outputCategories[i].Title < outputCategories[j].Title })
 
 	return json.MarshalIndent(outputCategories, "", "  ")
 }

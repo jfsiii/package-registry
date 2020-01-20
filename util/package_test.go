@@ -51,7 +51,7 @@ var packageTests = []struct {
 					Versions: ">=1.2.3 <=4.5.6",
 				},
 			},
-			Categories: []string{"metrics", "logs", "foo"},
+			Categories: []CategoryID{"metrics", "logs", "foo"},
 		},
 		false,
 		"invalid category ",
@@ -60,7 +60,7 @@ var packageTests = []struct {
 		Package{
 			Title:       &title,
 			Description: "my description",
-			Categories:  []string{"metrics", "logs"},
+			Categories:  []CategoryID{"metrics", "logs"},
 		},
 		false,
 		"missing format_version",
@@ -69,7 +69,7 @@ var packageTests = []struct {
 		Package{
 			Title:         &title,
 			Description:   "my description",
-			Categories:    []string{"metrics", "logs"},
+			Categories:    []CategoryID{"metrics", "logs"},
 			FormatVersion: "1.0",
 		},
 		false,
@@ -79,7 +79,7 @@ var packageTests = []struct {
 		Package{
 			Title:         &title,
 			Description:   "my description",
-			Categories:    []string{"metrics", "logs"},
+			Categories:    []CategoryID{"metrics", "logs"},
 			FormatVersion: "1.0.0",
 		},
 		true,
