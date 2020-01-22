@@ -454,7 +454,7 @@ components:
         datasets:
           type: array
           items:
-            $ref: '#/components/schemas/DataSet'
+            $ref: '#/components/schemas/Dataset'
         download:
           type: string
         path:
@@ -468,8 +468,8 @@ components:
         - formatversion
         - download
         - path
-    DataSet:
-      title: DataSet
+    Dataset:
+      title: Dataset
       type: object
       properties:
         title:

@@ -1,6 +1,6 @@
 .DS_Store
 package-registry
-
+node_modules
 .idea
 build
 public/*

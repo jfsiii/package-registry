@@ -10,8 +10,8 @@ type Category struct {
 	Title *string `json:"title,omitempty"`
 }
 
-// DataSet defines model for DataSet.
-type DataSet struct {
+// Dataset defines model for Dataset.
+type Dataset struct {
 	IngestPipeline *string                  `json:"ingest_pipeline,omitempty"`
 	Name           string                   `json:"name"`
 	Package        string                   `json:"package"`
@@ -38,7 +38,7 @@ type Kibana struct {
 type Package struct {
 	Assets        *[]string   `json:"assets,omitempty"`
 	Categories    []string    `json:"categories"`
-	Datasets      *[]DataSet  `json:"datasets,omitempty"`
+	Datasets      *[]Dataset  `json:"datasets,omitempty"`
 	Description   string      `json:"description"`
 	Download      string      `json:"download"`
 	Formatversion string      `json:"formatversion"`
@@ -79,4 +79,3 @@ type GetSearchParams struct {
 	// This can be set to true, to also list internal packages. This is set to false by default.
 	Internal *string `json:"internal,omitempty"`
 }
-
